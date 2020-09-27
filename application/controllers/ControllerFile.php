@@ -56,6 +56,28 @@ class ControllerFile extends CI_Controller
         }
     }
 
+    public function deletefile(){
+        $id_file = $this->uri->segment(4);
+
+        $datafile = array('id_file' => $id_file);
+
+        if($this->ModelFile->deletefile($datafile)){
+            $keterangan = array(
+                'berhasil' => true,
+                'pesan' => 'Berhasil Menghapus File'
+            );
+
+            echo json_encode($keterangan);
+        }else {
+            $keterangan = array(
+                'berhasil' => false,
+                'pesan' => 'Gagal Menghapus File'
+            );
+
+            echo json_encode($keterangan);
+        }
+    }
+
     public function getfile()
     {        
         $id_pengguna = $this->uri->segment(4);

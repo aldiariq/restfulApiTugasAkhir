@@ -16,6 +16,19 @@ class ModelFile extends CI_Model {
         
     }
 
+    public function deletefile($datafile)
+    {
+        $query = $this->db->where($datafile);
+        $query = $this->db->delete('tb_file');
+
+        if($this->db->affected_rows()){
+            return true;
+        }else {
+            return false;
+        }
+        
+    }
+
     public function getfile($datapengguna)
     {
         $query = $this->db->get_where('tb_file', $datapengguna);
