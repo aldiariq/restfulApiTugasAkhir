@@ -104,7 +104,9 @@ class ControllerFile extends CI_Controller
 
         $downloadfile = $this->ModelFile->downloadfile($datafile);
 
-        echo json_encode($downloadfile);
+        $datadownloadfile = array('file_pengguna' => $downloadfile);
+
+        echo json_encode($datadownloadfile);
     }
 }
 
