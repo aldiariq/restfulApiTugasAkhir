@@ -19,7 +19,9 @@ class ControllerKunciRSA extends CI_Controller {
 
         $kunci = $this->ModelKunciRSA->getKunciRSA($datapengguna);
 
-        echo json_encode($kunci);
+        $datakuncirsa = array('kunci_rsa' => $kunci);
+
+        echo json_encode($datakuncirsa);
     }
 
 }

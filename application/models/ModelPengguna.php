@@ -29,11 +29,6 @@ class ModelPengguna extends CI_Model
         }
     }
 
-    public function keluarpengguna($datapengguna)
-    {
-        
-    }
-
     public function getpengguna($datapengguna)
     {
         $query = $this->db->select('id_pengguna, email_pengguna, nohp_pengguna');
@@ -41,6 +36,32 @@ class ModelPengguna extends CI_Model
         $query = $this->db->where($datapengguna);
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function getpasswordlamapengguna($datapengguna){
+        $query = $this->db->select('password_pengguna');
+        $query = $this->db->from('tb_pengguna');
+        $query = $this->db->where($datapengguna);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function gantipasswordpengguna($datapengguna, $passwordpengguna){
+        $query = $this->db->where($datapengguna);
+        $query = $this->db->update('tb_pengguna', $passwordpengguna);
+
+        $this->db->db_debug = false;
+
+        if (!$query) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function keluarpengguna($datapengguna)
+    {
+        
     }
 }
 

@@ -94,6 +94,45 @@ class ControllerPengguna extends CI_Controller
         }
     }
 
+    public function gantipasswordpengguna(){
+        $id_pengguna = $this->input->post("id_pengguna");
+
+        $datapengguna = array('id_pengguna' => $id_pengguna);
+
+        foreach ($this->ModelPengguna->getpasswordlamapengguna($datapengguna) as $password) {
+            $password_lama = md5($this->input->post("password_lama"));
+            $password_baru = md5($this->input->post("password_baru"));
+            if($password_lama == $password->password_pengguna){
+                $datapassword = array('password_pengguna' => $password_baru);
+
+                $gantipassword = $this->ModelPengguna->gantipasswordpengguna($datapengguna, $datapassword);
+
+                if($gantipassword){
+                    $keterangan = array(
+                        'berhasil' => true,
+                        'pesan' => 'Berhasil Mengganti Password'
+                    );
+
+                    echo json_encode($keterangan);
+                }else {
+                    $keterangan = array(
+                        'berhasil' => false,
+                        'pesan' => 'Gagal Mengganti Password'
+                    );
+
+                    echo json_encode($keterangan);
+                }
+            }else {
+                $keterangan = array(
+                    'berhasil' => false,
+                    'pesan' => 'Gagal Mengganti Password'
+                );
+
+                echo json_encode($keterangan);
+            }
+        }
+    }
+
     public function keluarpengguna(){
         $id_pengguna = $this->uri->segment(3);
 
