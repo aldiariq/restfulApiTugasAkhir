@@ -4,12 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ControllerFile extends CI_Controller
 {
+    //Konstruktor Controller File
     public function __construct()
     {
         parent::__construct();
         $this->load->model('ModelFile');
     }
 
+    //Method Upload File
     public function uploadfile()
     {
         $nama_file = $this->input->post('nama_file');
@@ -17,8 +19,8 @@ class ControllerFile extends CI_Controller
         $kunci_file = $this->input->post('kunci_file');
 
         $config['upload_path'] = './FilePengguna/';
-        $config['allowed_types'] = 'pdf|doc|docx';
-        $config['max_size']    = '1000';
+        $config['allowed_types'] = '*';
+        $config['max_size']    = '1000000';
         $config['max_width']  = '10000';
         $config['max_height']  = '10000';
 

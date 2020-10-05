@@ -15,11 +15,14 @@ class ControllerPengguna extends CI_Controller
     public function daftarpengguna()
     {
         $emailpengguna = $this->input->post('email');
+        $namapengguna = $this->input->post('nama');
         $nohppengguna = $this->input->post('nohp');
         $passwordpengguna = md5($this->input->post('password'));
+        
 
         $datapengguna = array(
             'email_pengguna' => $emailpengguna,
+            'nama_pengguna' => $namapengguna,
             'nohp_pengguna' => $nohppengguna,
             'password_pengguna' => $passwordpengguna
         );
@@ -28,6 +31,7 @@ class ControllerPengguna extends CI_Controller
 
             $kunciprivate = $this->input->post('kunciprivate');
             $kuncipublic = $this->input->post('kuncipublic');
+            $kuncimodulus = $this->input->post('kuncimodulus');
 
             $datapenggunadaftar = $this->ModelPengguna->getpengguna($datapengguna);
 
@@ -35,7 +39,8 @@ class ControllerPengguna extends CI_Controller
                 $datakunci = array(
                     'id_pengguna' => $data->id_pengguna,
                     'kunci_private' => $kunciprivate,
-                    'kunci_public' => $kuncipublic
+                    'kunci_public' => $kuncipublic,
+                    'kunci_modulus' => $kuncimodulus
                 );
             }
 

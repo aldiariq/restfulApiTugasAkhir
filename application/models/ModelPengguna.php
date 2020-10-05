@@ -31,7 +31,7 @@ class ModelPengguna extends CI_Model
 
     public function getpengguna($datapengguna)
     {
-        $query = $this->db->select('id_pengguna, email_pengguna, nohp_pengguna');
+        $query = $this->db->select('id_pengguna, email_pengguna, nama_pengguna, nohp_pengguna');
         $query = $this->db->from('tb_pengguna');
         $query = $this->db->where($datapengguna);
         $query = $this->db->get();

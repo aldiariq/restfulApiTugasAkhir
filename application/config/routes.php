@@ -53,7 +53,6 @@ $route['default_controller'] = 'ControllerInfoAplikasi/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-
 $route['api/infoaplikasi'] = 'ControllerInfoAplikasi/index';
 
 $route['api/daftarpengguna'] = 'ControllerPengguna/daftarpengguna';
