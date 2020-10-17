@@ -8,9 +8,9 @@ class ControllerInfoAplikasi extends CI_Controller {
     {
         $infoaplikasi = array(
             'namaaplikasi' => 'Aplikasi Penyimpanan Dokumen Online Terenkripsi',
-            'pembimbingta' => 'Drs. Megah Mulya, M.T.',
-            'pembuataplikasi' => 'M. Aldi Ariqi',
-            'infoaplikasi' => 'Aplikasi ini merupakan Aplikasi Penyimpanan Online File Online File Dokumen Terenkripsi yang Dibuat Untuk Penyusunan Skripsi di Jurusan Teknik Informatika Dengan Topik Kriptografi Menggunakan Metode Hybrid Cryptosystem Blowfish dan RSA()'
+            'namapembimbingta' => 'Drs. Megah Mulya, M.T.',
+            'namamahasiswa' => 'M. Aldi Ariqi',
+            'deskripsiaplikasi' => 'Aplikasi ini merupakan Aplikasi Penyimpanan Online File Dokumen Terenkripsi yang Dibuat Menggunakan Metode Hybrid Cryptosystem Blowfish dan RSA(Rivest Shamir Adleman)'
         );
 
         echo json_encode($infoaplikasi);
