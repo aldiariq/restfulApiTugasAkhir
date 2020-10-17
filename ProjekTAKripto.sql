@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 17, 2020 at 08:47 AM
+-- Generation Time: Oct 17, 2020 at 10:05 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -48,6 +48,13 @@ CREATE TABLE `tb_kunci_rsa` (
   `kunci_modulus` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_kunci_rsa`
+--
+
+INSERT INTO `tb_kunci_rsa` (`id_kunci`, `id_pengguna`, `kunci_private`, `kunci_public`, `kunci_modulus`) VALUES
+(17, 1, '207221951726395509200509670021253642225', '326236970781103729194725730830262179537', '281617602484908689234386226529058891597');
+
 -- --------------------------------------------------------
 
 --
@@ -58,9 +65,15 @@ CREATE TABLE `tb_pengguna` (
   `id_pengguna` int(11) NOT NULL,
   `email_pengguna` varchar(100) NOT NULL,
   `nama_pengguna` varchar(100) NOT NULL,
-  `nohp_pengguna` varchar(100) NOT NULL,
   `password_pengguna` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_pengguna`
+--
+
+INSERT INTO `tb_pengguna` (`id_pengguna`, `email_pengguna`, `nama_pengguna`, `password_pengguna`) VALUES
+(1, 'aldi@gmail.com', 'M. Aldi Ariqi', '25d55ad283aa400af464c76d713c07ad');
 
 --
 -- Indexes for dumped tables
@@ -101,13 +114,13 @@ ALTER TABLE `tb_file`
 -- AUTO_INCREMENT for table `tb_kunci_rsa`
 --
 ALTER TABLE `tb_kunci_rsa`
-  MODIFY `id_kunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_kunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tb_pengguna`
 --
 ALTER TABLE `tb_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

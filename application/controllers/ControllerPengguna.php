@@ -16,14 +16,11 @@ class ControllerPengguna extends CI_Controller
     {
         $emailpengguna = $this->input->post('email');
         $namapengguna = $this->input->post('nama');
-        $nohppengguna = $this->input->post('nohp');
         $passwordpengguna = md5($this->input->post('password'));
-        
 
         $datapengguna = array(
             'email_pengguna' => $emailpengguna,
             'nama_pengguna' => $namapengguna,
-            'nohp_pengguna' => $nohppengguna,
             'password_pengguna' => $passwordpengguna
         );
 
