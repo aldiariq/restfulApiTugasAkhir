@@ -14,7 +14,6 @@ class ControllerFile extends CI_Controller
     //Method Upload File
     public function uploadfile()
     {
-        $nama_file = $this->input->post('nama_file');
         $id_pengguna = $this->input->post('id_pengguna');
         $kunci_file = $this->input->post('kunci_file');
 
@@ -26,7 +25,10 @@ class ControllerFile extends CI_Controller
 
         $this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload('file_enkripsi')) {
+        $upload = $this->upload->do_upload('file_enkripsi');
+        $upload = $this->upload->data();
+
+        if (!$upload) {
             $keterangan = array(
                 'berhasil' => false,
                 'pesan' => 'Gagal Mengupload File'
@@ -35,7 +37,7 @@ class ControllerFile extends CI_Controller
             echo json_encode($keterangan);
         } else {
             $datafile = array(
-                'nama_file' => $nama_file,
+                'nama_file' => $upload['file_name'],
                 'id_pengguna' => $id_pengguna,
                 'kunci_file' => $kunci_file
             );
