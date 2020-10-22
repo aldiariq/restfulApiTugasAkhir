@@ -17,7 +17,11 @@ class ControllerFile extends CI_Controller
         $id_pengguna = $this->input->post('id_pengguna');
         $kunci_file = $this->input->post('kunci_file');
 
-        $config['upload_path'] = './FilePengguna/';
+        if(!is_dir('./FilePengguna/' . $id_pengguna)){
+            mkdir('./FilePengguna/' . $id_pengguna, 0777, TRUE);
+        }
+
+        $config['upload_path'] = './FilePengguna/' . $id_pengguna;
         $config['allowed_types'] = '*';
         $config['max_size']    = '1000000';
         $config['max_width']  = '10000';
