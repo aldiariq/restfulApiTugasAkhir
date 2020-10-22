@@ -61,7 +61,7 @@ $route['api/gantipasswordpengguna'] = 'ControllerPengguna/gantipasswordpengguna'
 $route['api/keluarpengguna/(:any)'] = 'ControllerPengguna/keluarpengguna/(:any)';
 
 $route['api/operasifile/uploadfile'] = 'ControllerFile/uploadfile';
-$route['api/operasifile/deletefile/(:any)'] = 'ControllerFile/deletefile/(:any)';
+$route['api/operasifile/deletefile'] = 'ControllerFile/deletefile';
 $route['api/operasifile/getfile/(:any)'] = 'ControllerFile/getfile/(:any)';
 $route['api/operasifile/downloadfile/(:any)/(:any)'] = 'ControllerFile/downloadfile/(:any)/(:any)';
 

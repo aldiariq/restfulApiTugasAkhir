@@ -65,11 +65,18 @@ class ControllerFile extends CI_Controller
     }
 
     public function deletefile(){
-        $id_file = $this->uri->segment(4);
+        $id_file = $this->input->post('id_file');
+        $nama_file = $this->input->post('nama_file');
+        $id_pengguna = $this->input->post('id_pengguna');
 
-        $datafile = array('id_file' => $id_file);
+        $datafile = array(
+            'id_file' => $id_file,
+            'nama_file' => $nama_file,
+            'id_pengguna' => $id_pengguna
+        );
 
         if($this->ModelFile->deletefile($datafile)){
+            unlink('./FilePengguna/'.$id_pengguna.'/'.$nama_file);
             $keterangan = array(
                 'berhasil' => true,
                 'pesan' => 'Berhasil Menghapus File'
