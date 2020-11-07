@@ -7,22 +7,27 @@
 	"item": [
 		{
 			"name": "info aplikasi",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
 				"url": {
-					"raw": "http://192.168.100.13/ProjekTAKripto/api/infoaplikasi",
-					"protocol": "http",
+					"raw": "https://aldiariqrestfulapi.ddns.net/ProjekTAKripto/",
+					"protocol": "https",
 					"host": [
-						"192",
-						"168",
-						"100",
-						"13"
+						"aldiariqrestfulapi",
+						"ddns",
+						"net"
 					],
 					"path": [
 						"ProjekTAKripto",
-						"api",
-						"infoaplikasi"
+						""
 					]
 				}
 			},
@@ -69,13 +74,12 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1/ProjekTAKripto/api/daftarpengguna",
-					"protocol": "http",
+					"raw": "https://aldiariqrestfulapi.ddns.net/ProjekTAKripto/api/daftarpengguna",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"aldiariqrestfulapi",
+						"ddns",
+						"net"
 					],
 					"path": [
 						"ProjekTAKripto",
@@ -96,24 +100,23 @@
 					"formdata": [
 						{
 							"key": "email",
-							"value": "aldi@gmail.com",
+							"value": "daftar@gmail.com",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "12345",
+							"value": "12345678",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://192.168.100.13/ProjekTAKripto/api/masukpengguna",
-					"protocol": "http",
+					"raw": "https://aldiariqrestfulapi.000webhostapp.com/ProjekTAKripto/api/masukpengguna",
+					"protocol": "https",
 					"host": [
-						"192",
-						"168",
-						"100",
-						"13"
+						"aldiariqrestfulapi",
+						"000webhostapp",
+						"com"
 					],
 					"path": [
 						"ProjekTAKripto",
@@ -133,13 +136,8 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "nama_file",
-							"value": "hasil.enc",
-							"type": "text"
-						},
-						{
 							"key": "id_pengguna",
-							"value": "15",
+							"value": "1",
 							"type": "text"
 						},
 						{
@@ -150,7 +148,7 @@
 						{
 							"key": "file_enkripsi",
 							"type": "file",
-							"src": "/home/aldiariq/50548699.jpeg.enc"
+							"src": "/home/aldiariq/hasil.enc"
 						}
 					]
 				},
@@ -186,20 +184,20 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/getfile/16",
-					"protocol": "http",
+					"raw": "https://aldiariqrestfulapi.ddns.net/ProjekTAKripto//api/operasifile/getfile/22",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"aldiariqrestfulapi",
+						"ddns",
+						"net"
 					],
 					"path": [
 						"ProjekTAKripto",
+						"",
 						"api",
 						"operasifile",
 						"getfile",
-						"16"
+						"22"
 					]
 				}
 			},
@@ -234,23 +232,25 @@
 		{
 			"name": "get kunci rsa",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1/ProjekTAKripto/api/operasikunci/getkuncirsa/21",
-					"protocol": "http",
+					"raw": "https://aldiariqrestfulapi.000webhostapp.com/ProjekTAKripto/api/operasikunci/getkuncirsa/6",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"aldiariqrestfulapi",
+						"000webhostapp",
+						"com"
 					],
 					"path": [
 						"ProjekTAKripto",
 						"api",
 						"operasikunci",
 						"getkuncirsa",
-						"21"
+						"6"
 					]
 				}
 			},
@@ -283,10 +283,30 @@
 		{
 			"name": "delete file",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_file",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "nama_file",
+							"value": "12009-23844-1-SM.pdf1.enc",
+							"type": "text"
+						},
+						{
+							"key": "id_pengguna",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/deletefile/3",
+					"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/deletefile",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -298,8 +318,7 @@
 						"ProjekTAKripto",
 						"api",
 						"operasifile",
-						"deletefile",
-						"3"
+						"deletefile"
 					]
 				}
 			},
