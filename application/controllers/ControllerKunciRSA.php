@@ -2,7 +2,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ControllerKunciRSA extends CI_Controller {
+use chriskacerguis\RestServer\RestController;
+
+class ControllerKunciRSA extends RestController {
 
     
     public function __construct()
@@ -12,7 +14,7 @@ class ControllerKunciRSA extends CI_Controller {
     }
     
 
-    public function getKunciRSA(){
+    public function getKunciRSA_get(){
         $id_pengguna = $this->uri->segment(4);
         
         $datapengguna = array('id_pengguna' => $id_pengguna);
@@ -21,7 +23,9 @@ class ControllerKunciRSA extends CI_Controller {
 
         $datakuncirsa = array('kunci_rsa' => $kunci);
 
-        echo json_encode($datakuncirsa);
+        $this->set_response(
+            $datakuncirsa, 200
+        );
     }
 
 }

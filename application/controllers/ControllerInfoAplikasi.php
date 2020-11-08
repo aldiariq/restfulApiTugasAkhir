@@ -2,9 +2,11 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ControllerInfoAplikasi extends CI_Controller {
+use chriskacerguis\RestServer\RestController;
 
-    public function index()
+class ControllerInfoAplikasi extends RestController {
+
+    public function index_get()
     {
         $infoaplikasi = array(
             'namaaplikasi' => 'Aplikasi Penyimpanan Dokumen Online Terenkripsi',
@@ -13,7 +15,9 @@ class ControllerInfoAplikasi extends CI_Controller {
             'deskripsiaplikasi' => 'Aplikasi ini merupakan aplikasi penyimpanan file dokumen online terenkripsi yang dibuat untuk penyusunan tugas akhir di Jurusan Teknik Informatika dengan Topik Kriptografi Menggunakan Metode Hybrid Cryptosystem Blowfish dan RSA(Rivest Shamir Adleman)'
         );
 
-        echo json_encode($infoaplikasi);
+        $this->set_response(
+            $infoaplikasi, 200
+        );
     }
 
 }

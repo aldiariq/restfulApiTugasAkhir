@@ -2,7 +2,9 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class ControllerPengguna extends CI_Controller
+use chriskacerguis\RestServer\RestController;
+
+class ControllerPengguna extends RestController
 {
 
     public function __construct()
@@ -12,7 +14,7 @@ class ControllerPengguna extends CI_Controller
         $this->load->model('ModelKunciRSA');
     }
 
-    public function daftarpengguna()
+    public function daftarpengguna_post()
     {
         $emailpengguna = $this->input->post('email');
         $namapengguna = $this->input->post('nama');
@@ -49,14 +51,18 @@ class ControllerPengguna extends CI_Controller
                     'pesan' => 'Berhasil Mendaftarkan Pengguna'
                 );
 
-                echo json_encode($keterangan);
+                $this->set_response(
+                    $keterangan, 200
+                );
             }else {
                 $keterangan = array(
                     'berhasil' => false,
                     'pesan' => 'Gagal Mendaftarkan Pengguna'
                 );
     
-                echo json_encode($keterangan);
+                $this->set_response(
+                    $keterangan, 401
+                );
             }
         } else {
             $keterangan = array(
@@ -64,11 +70,13 @@ class ControllerPengguna extends CI_Controller
                 'pesan' => 'Gagal Mendaftarkan Pengguna'
             );
 
-            echo json_encode($keterangan);
+            $this->set_response(
+                $keterangan, 401
+            );
         }
     }
 
-    public function masukpengguna()
+    public function masukpengguna_post()
     {
         $emailpengguna = $this->input->post('email');
         $passwordpengguna = $this->input->post('password');
@@ -85,18 +93,22 @@ class ControllerPengguna extends CI_Controller
                 'pengguna' => $this->ModelPengguna->getpengguna($datapengguna)
             );
 
-            echo json_encode($keterangan);
+            $this->set_response(
+                $keterangan, 200
+            );
         } else {
             $keterangan = array(
                 'berhasil' => false,
                 'pesan' => 'Gagal Masuk'
             );
 
-            echo json_encode($keterangan);
+            $this->set_response(
+                $keterangan, 401
+            );
         }
     }
 
-    public function gantipasswordpengguna(){
+    public function gantipasswordpengguna_post(){
         $id_pengguna = $this->input->post("id_pengguna");
 
         $datapengguna = array('id_pengguna' => $id_pengguna);
@@ -115,14 +127,18 @@ class ControllerPengguna extends CI_Controller
                         'pesan' => 'Berhasil Mengganti Password'
                     );
 
-                    echo json_encode($keterangan);
+                    $this->set_response(
+                        $keterangan, 200
+                    );
                 }else {
                     $keterangan = array(
                         'berhasil' => false,
                         'pesan' => 'Gagal Mengganti Password'
                     );
 
-                    echo json_encode($keterangan);
+                    $this->set_response(
+                        $keterangan, 401
+                    );
                 }
             }else {
                 $keterangan = array(
@@ -130,12 +146,14 @@ class ControllerPengguna extends CI_Controller
                     'pesan' => 'Gagal Mengganti Password'
                 );
 
-                echo json_encode($keterangan);
+                $this->set_response(
+                    $keterangan, 401
+                );
             }
         }
     }
 
-    public function keluarpengguna(){
+    public function keluarpengguna_get(){
         $id_pengguna = $this->uri->segment(3);
 
         $datapengguna = array('id_pengguna' => $id_pengguna);
@@ -146,14 +164,18 @@ class ControllerPengguna extends CI_Controller
                 'pesan' => 'Berhasil Keluar'
             );
 
-            echo json_encode($keterangan);
+            $this->set_response(
+                $keterangan, 200
+            );
         }else {
             $keterangan = array(
                 'berhasil' => false,
                 'pesan' => 'Gagal Keluar'
             );
 
-            echo json_encode($keterangan);
+            $this->set_response(
+                $keterangan, 401
+            );
         }
     }
 }

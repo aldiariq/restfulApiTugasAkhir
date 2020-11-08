@@ -2,7 +2,9 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class ControllerFile extends CI_Controller
+use chriskacerguis\RestServer\RestController;
+
+class ControllerFile extends RestController
 {
     //Konstruktor Controller File
     public function __construct()
@@ -12,7 +14,7 @@ class ControllerFile extends CI_Controller
     }
 
     //Method Upload File
-    public function uploadfile()
+    public function uploadfile_post()
     {
         $id_pengguna = $this->input->post('id_pengguna');
         $kunci_file = $this->input->post('kunci_file');
@@ -38,7 +40,9 @@ class ControllerFile extends CI_Controller
                 'pesan' => 'Gagal Mengupload File'
             );
 
-            echo json_encode($keterangan);
+            $this->set_response(
+                $keterangan, 401
+            );
         } else {
             $datafile = array(
                 'nama_file' => $upload['file_name'],
@@ -52,19 +56,23 @@ class ControllerFile extends CI_Controller
                     'pesan' => 'Berhasil Mengupload File'
                 );
     
-                echo json_encode($keterangan);   
+                $this->set_response(
+                    $keterangan, 200
+                );
             }else {
                 $keterangan = array(
                     'berhasil' => false,
                     'pesan' => 'Gagal Mengupload File'
                 );
     
-                echo json_encode($keterangan);   
+                $this->set_response(
+                    $keterangan, 401
+                );
             }
         }
     }
 
-    public function deletefile(){
+    public function deletefile_post(){
         $id_file = $this->input->post('id_file');
         $nama_file = $this->input->post('nama_file');
         $id_pengguna = $this->input->post('id_pengguna');
@@ -82,18 +90,22 @@ class ControllerFile extends CI_Controller
                 'pesan' => 'Berhasil Menghapus File'
             );
 
-            echo json_encode($keterangan);
+            $this->set_response(
+                $keterangan, 200
+            );
         }else {
             $keterangan = array(
                 'berhasil' => false,
                 'pesan' => 'Gagal Menghapus File'
             );
 
-            echo json_encode($keterangan);
+            $this->set_response(
+                $keterangan, 401
+            );
         }
     }
 
-    public function getfile()
+    public function getfile_get()
     {        
         $id_pengguna = $this->uri->segment(4);
 
@@ -103,10 +115,12 @@ class ControllerFile extends CI_Controller
 
         $datafilepengguna = array('file_pengguna' => $filepengguna);
 
-        echo json_encode($datafilepengguna);
+        $this->set_response(
+            $datafilepengguna, 200
+        );
     }
 
-    public function downloadfile()
+    public function downloadfile_get()
     {
 
         $id_pengguna = $this->uri->segment(4);
@@ -121,7 +135,9 @@ class ControllerFile extends CI_Controller
 
         $datadownloadfile = array('file_pengguna' => $downloadfile);
 
-        echo json_encode($datadownloadfile);
+        $this->set_response(
+            $datadownloadfile, 200
+        );
     }
 }
 
