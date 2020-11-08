@@ -87,9 +87,20 @@ class ControllerPengguna extends RestController
         );
 
         if ($this->ModelPengguna->masukpengguna($datapengguna)) {
+            foreach ($this->ModelPengguna->getpengguna($datapengguna) as $data) {
+                $datatoken = array(
+                    'id' => $data->id_pengguna,
+                    'email_pengguna' => $data->email_pengguna,
+                    'time' => time()
+                );
+            }
+
+            $tokenpengguna = $this->authorizationtoken->generateToken($datatoken);
+
             $keterangan = array(
                 'berhasil' => true,
                 'pesan' => 'Berhasil Masuk',
+                'token' => $tokenpengguna,
                 'pengguna' => $this->ModelPengguna->getpengguna($datapengguna)
             );
 
