@@ -41,8 +41,7 @@ class Authorizationtoken
      * ( 1 Day ) : 60 * 60 * 24 = 86400
      * ( 1 Hour ) : 60 * 60     = 3600
      */
-    protected $token_expire_time = 60 * 60; 
-
+    protected $token_expire_time = 86400 * 30;
 
     public function __construct()
 	{

@@ -52,16 +52,18 @@ class ControllerPengguna extends RestController
                 );
 
                 $this->set_response(
-                    $keterangan, 200
+                    $keterangan,
+                    200
                 );
-            }else {
+            } else {
                 $keterangan = array(
                     'berhasil' => false,
                     'pesan' => 'Gagal Mendaftarkan Pengguna'
                 );
-    
+
                 $this->set_response(
-                    $keterangan, 401
+                    $keterangan,
+                    401
                 );
             }
         } else {
@@ -71,7 +73,8 @@ class ControllerPengguna extends RestController
             );
 
             $this->set_response(
-                $keterangan, 401
+                $keterangan,
+                401
             );
         }
     }
@@ -105,7 +108,8 @@ class ControllerPengguna extends RestController
             );
 
             $this->set_response(
-                $keterangan, 200
+                $keterangan,
+                200
             );
         } else {
             $keterangan = array(
@@ -114,78 +118,114 @@ class ControllerPengguna extends RestController
             );
 
             $this->set_response(
-                $keterangan, 401
+                $keterangan,
+                401
             );
         }
     }
 
-    public function gantipasswordpengguna_post(){
-        $id_pengguna = $this->input->post("id_pengguna");
+    public function gantipasswordpengguna_post()
+    {
+        $validasitoken = $this->authorizationtoken->validateToken();
 
-        $datapengguna = array('id_pengguna' => $id_pengguna);
+        if (!empty($validasitoken) && $validasitoken['status'] === TRUE) {
+            $id_pengguna = $this->input->post("id_pengguna");
 
-        foreach ($this->ModelPengguna->getpasswordlamapengguna($datapengguna) as $password) {
-            $password_lama = md5($this->input->post("password_lama"));
-            $password_baru = md5($this->input->post("password_baru"));
-            if($password_lama == $password->password_pengguna){
-                $datapassword = array('password_pengguna' => $password_baru);
+            $datapengguna = array('id_pengguna' => $id_pengguna);
 
-                $gantipassword = $this->ModelPengguna->gantipasswordpengguna($datapengguna, $datapassword);
+            foreach ($this->ModelPengguna->getpasswordlamapengguna($datapengguna) as $password) {
+                $password_lama = md5($this->input->post("password_lama"));
+                $password_baru = md5($this->input->post("password_baru"));
+                if ($password_lama == $password->password_pengguna) {
+                    $datapassword = array('password_pengguna' => $password_baru);
 
-                if($gantipassword){
-                    $keterangan = array(
-                        'berhasil' => true,
-                        'pesan' => 'Berhasil Mengganti Password'
-                    );
+                    $gantipassword = $this->ModelPengguna->gantipasswordpengguna($datapengguna, $datapassword);
 
-                    $this->set_response(
-                        $keterangan, 200
-                    );
-                }else {
+                    if ($gantipassword) {
+                        $keterangan = array(
+                            'berhasil' => true,
+                            'pesan' => 'Berhasil Mengganti Password'
+                        );
+
+                        $this->set_response(
+                            $keterangan,
+                            200
+                        );
+                    } else {
+                        $keterangan = array(
+                            'berhasil' => false,
+                            'pesan' => 'Gagal Mengganti Password'
+                        );
+
+                        $this->set_response(
+                            $keterangan,
+                            401
+                        );
+                    }
+                } else {
                     $keterangan = array(
                         'berhasil' => false,
                         'pesan' => 'Gagal Mengganti Password'
                     );
 
                     $this->set_response(
-                        $keterangan, 401
+                        $keterangan,
+                        401
                     );
                 }
-            }else {
-                $keterangan = array(
-                    'berhasil' => false,
-                    'pesan' => 'Gagal Mengganti Password'
-                );
-
-                $this->set_response(
-                    $keterangan, 401
-                );
             }
-        }
-    }
-
-    public function keluarpengguna_get(){
-        $id_pengguna = $this->uri->segment(3);
-
-        $datapengguna = array('id_pengguna' => $id_pengguna);
-
-        if($this->ModelPengguna->keluarpengguna($datapengguna)){
+        } else {
             $keterangan = array(
-                'berhasil' => true,
-                'pesan' => 'Berhasil Keluar'
+                'berhasil' => false,
+                'pesan' => 'Token Tidak Valid'
             );
 
             $this->set_response(
-                $keterangan, 200
+                $keterangan,
+                401
             );
-        }else {
+        }
+    }
+
+    public function keluarpengguna_get()
+    {
+        $validasitoken = $this->authorizationtoken->validateToken();
+
+        if (!empty($validasitoken) && $validasitoken['status'] === TRUE) {
+            $id_pengguna = $this->uri->segment(3);
+
+            $datapengguna = array('id_pengguna' => $id_pengguna);
+
+            if ($this->ModelPengguna->keluarpengguna($datapengguna)) {
+                $keterangan = array(
+                    'berhasil' => true,
+                    'pesan' => 'Berhasil Keluar'
+                );
+
+                $this->set_response(
+                    $keterangan,
+                    200
+                );
+            } else {
+                $keterangan = array(
+                    'berhasil' => false,
+                    'pesan' => 'Gagal Keluar'
+                );
+
+                $this->set_response(
+                    $keterangan,
+                    401
+                );
+            }
+        } else {
             $keterangan = array(
                 'berhasil' => false,
                 'pesan' => 'Gagal Keluar'
             );
 
             $this->set_response(
-                $keterangan, 401
+                $keterangan,
+                401
             );
         }
     }
