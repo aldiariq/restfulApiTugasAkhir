@@ -29,8 +29,8 @@ class ControllerFile extends RestController
             $config['upload_path'] = './FilePengguna/' . $id_pengguna;
             $config['allowed_types'] = '*';
             $config['max_size']    = '1000000';
-            $config['max_width']  = '10000';
-            $config['max_height']  = '10000';
+            $config['remove_spaces'] = TRUE;
+            $config['overwrite'] = TRUE;
 
             $this->load->library('upload', $config);
 
