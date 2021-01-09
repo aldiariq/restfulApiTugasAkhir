@@ -11,6 +11,7 @@ class ControllerPengguna extends RestController
         parent::__construct();
         $this->load->model('ModelPengguna');
         $this->load->model('ModelKunciRSA');
+        $this->load->model('ModelFile');
     }
 
     public function daftarpengguna_post()
@@ -165,7 +166,19 @@ class ControllerPengguna extends RestController
 
             $datapengguna = array('id_pengguna' => $id_pengguna);
 
-            if ($this->ModelPengguna->keluarpengguna($datapengguna)) {
+            $directory = new RecursiveDirectoryIterator('./FilePengguna/' . $id_pengguna,  FilesystemIterator::SKIP_DOTS);
+            $files = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::CHILD_FIRST);
+            foreach ($files as $file) {
+                if (is_dir($file)) {
+                    rmdir($file);
+                } else {
+                    unlink($file);
+                }
+            }
+
+            $hapusfolder = rmdir('./FilePengguna/' . $id_pengguna);
+
+            if ($this->ModelKunciRSA->keluarpengguna($datapengguna) && $this->ModelFile->keluarpengguna($datapengguna) && $hapusfolder) {
                 $keterangan = array(
                     'berhasil' => true,
                     'pesan' => 'Berhasil Keluar'
@@ -189,7 +202,7 @@ class ControllerPengguna extends RestController
         } else {
             $keterangan = array(
                 'berhasil' => false,
-                'pesan' => 'Gagal Keluar'
+                'pesan' => 'Token Tidak Valid'
             );
 
             $this->set_response(

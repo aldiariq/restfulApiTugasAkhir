@@ -58,11 +58,6 @@ class ModelPengguna extends CI_Model
             return true;
         }
     }
-
-    public function keluarpengguna($datapengguna)
-    {
-        
-    }
 }
 
 /* End of file ModelPengguna.php */

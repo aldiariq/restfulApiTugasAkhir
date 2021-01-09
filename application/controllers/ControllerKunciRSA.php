@@ -16,9 +16,9 @@ class ControllerKunciRSA extends RestController
         $validasitoken = $this->authorizationtoken->validateToken();
 
         if (!empty($validasitoken) && $validasitoken['status'] === TRUE) {
-            $idpengguna = $this->input->post('idpengguna');
-            $kuncipublic = $this->input->post('kuncipublic');
-            $kuncimodulus = $this->input->post('kuncimodulus');
+            $idpengguna = $this->input->post('id_pengguna');
+            $kuncipublic = $this->input->post('kunci_public');
+            $kuncimodulus = $this->input->post('kunci_modulus');
 
             $datakunci = array(
                 'id_pengguna' => $idpengguna,
