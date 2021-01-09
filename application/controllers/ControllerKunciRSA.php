@@ -6,14 +6,11 @@ use chriskacerguis\RestServer\RestController;
 
 class ControllerKunciRSA extends RestController
 {
-
-
     public function __construct()
     {
         parent::__construct();
         $this->load->model('ModelKunciRSA');
     }
-
 
     public function getKunciRSA_get()
     {

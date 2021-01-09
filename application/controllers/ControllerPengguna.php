@@ -6,7 +6,6 @@ use chriskacerguis\RestServer\RestController;
 
 class ControllerPengguna extends RestController
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -27,42 +26,15 @@ class ControllerPengguna extends RestController
         );
 
         if ($this->ModelPengguna->daftarpengguna($datapengguna)) {
-            $kuncipublic = $this->input->post('kuncipublic');
-            $kuncimodulus = $this->input->post('kuncimodulus');
+            $keterangan = array(
+                'berhasil' => true,
+                'pesan' => 'Berhasil Mendaftarkan Pengguna'
+            );
 
-            $datapenggunadaftar = $this->ModelPengguna->getpengguna($datapengguna);
-
-            foreach ($datapenggunadaftar as $data) {
-                $datakunci = array(
-                    'id_pengguna' => $data->id_pengguna,
-                    'kunci_public' => $kuncipublic,
-                    'kunci_modulus' => $kuncimodulus
-                );
-            }
-
-            $generatekunci = $this->ModelKunciRSA->generateKunciRSA($datakunci);
-
-            if ($generatekunci) {
-                $keterangan = array(
-                    'berhasil' => true,
-                    'pesan' => 'Berhasil Mendaftarkan Pengguna'
-                );
-
-                $this->set_response(
-                    $keterangan,
-                    200
-                );
-            } else {
-                $keterangan = array(
-                    'berhasil' => false,
-                    'pesan' => 'Gagal Mendaftarkan Pengguna'
-                );
-
-                $this->set_response(
-                    $keterangan,
-                    401
-                );
-            }
+            $this->set_response(
+                $keterangan,
+                200
+            );
         } else {
             $keterangan = array(
                 'berhasil' => false,
