@@ -65,4 +65,5 @@ $route['api/operasifile/deletefile'] = 'ControllerFile/deletefile';
 $route['api/operasifile/getfile/(:any)'] = 'ControllerFile/getfile/(:any)';
 $route['api/operasifile/downloadfile/(:any)/(:any)'] = 'ControllerFile/downloadfile/(:any)/(:any)';
 
+$route['api/operasikunci/generatekuncirsa'] = 'ControllerKunciRSA/generatekuncirsa';
 $route['api/operasikunci/getkuncirsa/(:any)'] = 'ControllerKunciRSA/getkuncirsa/(:any)';
