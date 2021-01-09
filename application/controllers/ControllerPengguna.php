@@ -27,8 +27,6 @@ class ControllerPengguna extends RestController
         );
 
         if ($this->ModelPengguna->daftarpengguna($datapengguna)) {
-
-            $kunciprivate = $this->input->post('kunciprivate');
             $kuncipublic = $this->input->post('kuncipublic');
             $kuncimodulus = $this->input->post('kuncimodulus');
 
@@ -37,7 +35,6 @@ class ControllerPengguna extends RestController
             foreach ($datapenggunadaftar as $data) {
                 $datakunci = array(
                     'id_pengguna' => $data->id_pengguna,
-                    'kunci_private' => $kunciprivate,
                     'kunci_public' => $kuncipublic,
                     'kunci_modulus' => $kuncimodulus
                 );
