@@ -11,6 +11,7 @@ class ControllerPengguna extends RestController
         parent::__construct();
         $this->load->model('ModelPengguna');
         $this->load->model('ModelKonfirmasipendaftaran');
+        $this->load->model('ModelLupapassword');
         $this->load->model('ModelKunciRSA');
         $this->load->model('ModelFile');
     }
@@ -209,14 +210,14 @@ class ControllerPengguna extends RestController
         $dataaktivasi = $this->ModelKonfirmasipendaftaran->cekkonfirmasi($whereaktivasi);
 
         foreach ($dataaktivasi as $data) {
-            $whereuser = array(
+            $wherepengguna = array(
                 'id_pengguna' => $data->id_pengguna,
                 'email_pengguna' => $data->email_konfirmasi_pendaftaran
             );
 
-            $datauser = array('status_pengguna' => 'AKTIF');
+            $datapengguna = array('status_pengguna' => 'AKTIF');
 
-            if ($this->ModelPengguna->aktivasipengguna($whereuser, $datauser)) {
+            if ($this->ModelPengguna->aktivasipengguna($wherepengguna, $datapengguna)) {
                 $this->ModelKonfirmasipendaftaran->hapuskonfirmasi($whereaktivasi);
 
                 $this->load->view('aktivasipengguna/berhasil');
@@ -226,6 +227,90 @@ class ControllerPengguna extends RestController
         }
 
         $this->load->view('aktivasipengguna/gagal');
+    }
+
+    public function lupapasswordpengguna_post()
+    {
+        $emailtujuan = $this->input->post('email');
+
+        $datapengguna = array(
+            'email_pengguna' => $emailtujuan
+        );
+
+        $kodeunik = random_string('alnum', 32);
+
+        foreach ($this->ModelPengguna->getpengguna($datapengguna) as $data) {
+            $datalupapassword = array(
+                'email_lupa_password' => $emailtujuan,
+                'kodeunik_lupa_password' => $kodeunik,
+                'id_pengguna' => $data->id_pengguna
+            );
+        }
+
+        if ($this->ModelLupapassword->tambahlupapassword($datalupapassword)) {
+
+            $this->load->config('email');
+            $from = $this->config->item('smtp_user');
+            $to = $emailtujuan;
+
+            $this->email->set_newline("\r\n");
+            $this->email->from($from);
+            $this->email->to($to);
+            $this->email->subject('Reset Password');
+            $this->email->message('Klik Link Berikut Untuk Mereset Password Akun <a href="' . base_url() . "api/lupapasswordpengguna/" . $kodeunik . '">RESET</a>');
+            $this->email->set_mailtype('html');
+            $this->email->send();
+
+            $keterangan = array(
+                'berhasil' => true,
+                'pesan' => 'Berhasil Mengirim Permintaan Reset Password'
+            );
+
+            $this->set_response(
+                $keterangan,
+                200
+            );
+        } else {
+            $keterangan = array(
+                'berhasil' => false,
+                'pesan' => 'Gagal Mengirim Permintaan Reset Password'
+            );
+
+            $this->set_response(
+                $keterangan,
+                401
+            );
+        }
+    }
+
+    public function lupapasswordpengguna_get()
+    {
+        $kodeunik = $this->uri->segment(3);
+
+        $wherelupapassword = array(
+            'kodeunik_lupa_password' => $kodeunik,
+        );
+
+        $datalupapassword = $this->ModelLupapassword->ceklupapassword($wherelupapassword);
+
+        foreach ($datalupapassword as $data) {
+            $wherepengguna = array(
+                'id_pengguna' => $data->id_pengguna,
+                'email_pengguna' => $data->email_lupa_password
+            );
+
+            $datapengguna = array('password_pengguna' => md5('12345678'));
+
+            if ($this->ModelPengguna->gantipasswordpengguna($wherepengguna, $datapengguna)) {
+                $this->ModelLupapassword->hapuslupapassword($wherelupapassword);
+
+                $this->load->view('resetpassword/berhasil');
+            } else {
+                $this->load->view('resetpassword/gagal');
+            }
+        }
+
+        $this->load->view('resetpassword/gagal');
     }
 
     public function keluarpengguna_get()

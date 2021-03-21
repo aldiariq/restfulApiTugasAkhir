@@ -59,6 +59,8 @@ $route['api/daftarpengguna'] = 'ControllerPengguna/daftarpengguna';
 $route['api/aktivasipengguna/(:any)'] = 'ControllerPengguna/aktivasipengguna/(:any)';
 $route['api/masukpengguna'] = 'ControllerPengguna/masukpengguna';
 $route['api/gantipasswordpengguna'] = 'ControllerPengguna/gantipasswordpengguna';
+$route['api/lupapasswordpengguna'] = 'ControllerPengguna/lupapasswordpengguna';
+$route['api/lupapasswordpengguna/(:any)'] = 'ControllerPengguna/lupapasswordpengguna/(:any)';
 $route['api/keluarpengguna/(:any)'] = 'ControllerPengguna/keluarpengguna/(:any)';
 
 $route['api/operasifile/uploadfile'] = 'ControllerFile/uploadfile';
