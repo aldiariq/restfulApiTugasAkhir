@@ -37,8 +37,8 @@ class ControllerPengguna extends RestController
 
             foreach ($this->ModelPengguna->getpengguna($datapengguna) as $data) {
                 $datakonfirmasi = array(
-                    'email' => $emailpengguna,
-                    'kodeunik' => $kodeunik,
+                    'email_konfirmasi_pendaftaran' => $emailpengguna,
+                    'kodeunik_konfirmasi_pendaftaran' => $kodeunik,
                     'id_pengguna' => $data->id_pengguna
                 );
             }
@@ -203,7 +203,7 @@ class ControllerPengguna extends RestController
         $kodeunik = $this->uri->segment(3);
 
         $whereaktivasi = array(
-            'kodeunik' => $kodeunik,
+            'kodeunik_konfirmasi_pendaftaran' => $kodeunik,
         );
 
         $dataaktivasi = $this->ModelKonfirmasipendaftaran->cekkonfirmasi($whereaktivasi);
@@ -211,7 +211,7 @@ class ControllerPengguna extends RestController
         foreach ($dataaktivasi as $data) {
             $whereuser = array(
                 'id_pengguna' => $data->id_pengguna,
-                'email_pengguna' => $data->email
+                'email_pengguna' => $data->email_konfirmasi_pendaftaran
             );
 
             $datauser = array('status_pengguna' => 'AKTIF');
