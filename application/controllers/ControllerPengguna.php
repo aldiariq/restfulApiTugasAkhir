@@ -10,6 +10,7 @@ class ControllerPengguna extends RestController
     {
         parent::__construct();
         $this->load->model('ModelPengguna');
+        $this->load->model('ModelKonfirmasipendaftaran');
         $this->load->model('ModelKunciRSA');
         $this->load->model('ModelFile');
     }
@@ -27,15 +28,54 @@ class ControllerPengguna extends RestController
         );
 
         if ($this->ModelPengguna->daftarpengguna($datapengguna)) {
-            $keterangan = array(
-                'berhasil' => true,
-                'pesan' => 'Berhasil Mendaftarkan Pengguna'
+
+            $datapengguna = array(
+                'email_pengguna' => $emailpengguna
             );
 
-            $this->set_response(
-                $keterangan,
-                200
-            );
+            $kodeunik = random_string('alnum', 32);
+
+            foreach ($this->ModelPengguna->getpengguna($datapengguna) as $data) {
+                $datakonfirmasi = array(
+                    'email' => $emailpengguna,
+                    'kodeunik' => $kodeunik,
+                    'id_pengguna' => $data->id_pengguna
+                );
+            }
+
+            if ($this->ModelKonfirmasipendaftaran->tambahkonfirmasi($datakonfirmasi)) {
+                $this->load->config('email');
+                $from = $this->config->item('smtp_user');
+                $to = $emailpengguna;
+
+                $this->email->set_newline("\r\n");
+                $this->email->from($from);
+                $this->email->to($to);
+                $this->email->subject('Konfirmasi Email');
+                $this->email->message('Klik Link Berikut Untuk Aktivasi Akun <a href="' . base_url() . "api/aktivasipengguna/" . $kodeunik . '">AKTIVASI</a>');
+                $this->email->set_mailtype('html');
+                $this->email->send();
+
+                $keterangan = array(
+                    'berhasil' => true,
+                    'pesan' => 'Berhasil Mendaftarkan User',
+                );
+
+                $this->set_response(
+                    $keterangan,
+                    200
+                );
+            } else {
+                $keterangan = array(
+                    'berhasil' => false,
+                    'pesan' => 'Gagal Mendaftarkan User'
+                );
+
+                $this->set_response(
+                    $keterangan,
+                    401
+                );
+            }
         } else {
             $keterangan = array(
                 'berhasil' => false,
@@ -56,7 +96,8 @@ class ControllerPengguna extends RestController
 
         $datapengguna = array(
             'email_pengguna' => $emailpengguna,
-            'password_pengguna' => md5($passwordpengguna)
+            'password_pengguna' => md5($passwordpengguna),
+            'status_pengguna' => 'AKTIF'
         );
 
         if ($this->ModelPengguna->masukpengguna($datapengguna)) {
@@ -157,6 +198,36 @@ class ControllerPengguna extends RestController
         }
     }
 
+    public function aktivasipengguna_get()
+    {
+        $kodeunik = $this->uri->segment(3);
+
+        $whereaktivasi = array(
+            'kodeunik' => $kodeunik,
+        );
+
+        $dataaktivasi = $this->ModelKonfirmasipendaftaran->cekkonfirmasi($whereaktivasi);
+
+        foreach ($dataaktivasi as $data) {
+            $whereuser = array(
+                'id_pengguna' => $data->id_pengguna,
+                'email_pengguna' => $data->email
+            );
+
+            $datauser = array('status_pengguna' => 'AKTIF');
+
+            if ($this->ModelPengguna->aktivasipengguna($whereuser, $datauser)) {
+                $this->ModelKonfirmasipendaftaran->hapuskonfirmasi($whereaktivasi);
+
+                $this->load->view('aktivasipengguna/berhasil');
+            } else {
+                $this->load->view('aktivasipengguna/gagal');
+            }
+        }
+
+        $this->load->view('aktivasipengguna/gagal');
+    }
+
     public function keluarpengguna_get()
     {
         $validasitoken = $this->authorizationtoken->validateToken();
@@ -166,19 +237,21 @@ class ControllerPengguna extends RestController
 
             $datapengguna = array('id_pengguna' => $id_pengguna);
 
-            $directory = new RecursiveDirectoryIterator('./FilePengguna/' . $id_pengguna,  FilesystemIterator::SKIP_DOTS);
-            $files = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::CHILD_FIRST);
-            foreach ($files as $file) {
-                if (is_dir($file)) {
-                    rmdir($file);
-                } else {
-                    unlink($file);
+            if (is_dir('./FilePengguna/' . $id_pengguna)) {
+                $directory = new RecursiveDirectoryIterator('./FilePengguna/' . $id_pengguna,  FilesystemIterator::SKIP_DOTS);
+                $files = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::CHILD_FIRST);
+                foreach ($files as $file) {
+                    if (is_dir($file)) {
+                        rmdir($file);
+                    } else {
+                        unlink($file);
+                    }
                 }
+
+                rmdir('./FilePengguna/' . $id_pengguna);
             }
 
-            $hapusfolder = rmdir('./FilePengguna/' . $id_pengguna);
-
-            if ($this->ModelKunciRSA->keluarpengguna($datapengguna) && $this->ModelFile->keluarpengguna($datapengguna) && $hapusfolder) {
+            if ($this->ModelKunciRSA->keluarpengguna($datapengguna) && $this->ModelFile->keluarpengguna($datapengguna)) {
                 $keterangan = array(
                     'berhasil' => true,
                     'pesan' => 'Berhasil Keluar'

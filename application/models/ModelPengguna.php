@@ -58,6 +58,20 @@ class ModelPengguna extends CI_Model
             return true;
         }
     }
+
+    public function aktivasipengguna($whereuser, $datauser)
+    {
+        $query = $this->db->where($whereuser);
+        $query = $this->db->update('tb_pengguna', $datauser);
+
+        $this->db->db_debug = false;
+
+        if (!$query) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 /* End of file ModelPengguna.php */

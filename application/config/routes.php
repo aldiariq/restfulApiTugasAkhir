@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['api/infoaplikasi'] = 'ControllerInfoAplikasi/index';
 
 $route['api/daftarpengguna'] = 'ControllerPengguna/daftarpengguna';
+$route['api/aktivasipengguna/(:any)'] = 'ControllerPengguna/aktivasipengguna/(:any)';
 $route['api/masukpengguna'] = 'ControllerPengguna/masukpengguna';
 $route['api/gantipasswordpengguna'] = 'ControllerPengguna/gantipasswordpengguna';
 $route['api/keluarpengguna/(:any)'] = 'ControllerPengguna/keluarpengguna/(:any)';

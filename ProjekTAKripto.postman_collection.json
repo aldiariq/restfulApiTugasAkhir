@@ -6,24 +6,433 @@
 	},
 	"item": [
 		{
+			"name": "autentikasi",
+			"item": [
+				{
+					"name": "daftar pengguna",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "nama",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/daftarpengguna",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"daftarpengguna"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "masuk pengguna",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "aldi@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/masukpengguna",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"masukpengguna"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "keluar pengguna",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJlbWFpbF9wZW5nZ3VuYSI6ImFsZGlAZ21haWwuY29tIiwidGltZSI6MTYxMDE2NDE1MH0.SJUSfyRTmUNKK_PVbOl_gYbSd9zrZYksnGlKMSFsiZY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/keluarpengguna/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"keluarpengguna",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ganti password pengguna",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_pengguna",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "password_lama",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "password_baru",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/gantipasswordpengguna",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"gantipasswordpengguna"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "operasi kunci",
+			"item": [
+				{
+					"name": "get kunci rsa",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjQiLCJlbWFpbF9wZW5nZ3VuYSI6ImFyaXFpQGdtYWlsLmNvbSIsInRpbWUiOjE2MDQ4MjUyMTd9.A98TzLZ3l8zR_iAJx-cxqYkTvQvicnW5c9EOhDVd9p4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/operasikunci/getkuncirsa/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"operasikunci",
+								"getkuncirsa",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate kunci rsa",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJlbWFpbF9wZW5nZ3VuYSI6ImFsZGlAZ21haWwuY29tIiwidGltZSI6MTYxMDE2NDE1MH0.SJUSfyRTmUNKK_PVbOl_gYbSd9zrZYksnGlKMSFsiZY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_pengguna",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "kunci_public",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "kunci_modulus",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/operasikunci/generatekuncirsa",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"operasikunci",
+								"generatekuncirsa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "operasi file",
+			"item": [
+				{
+					"name": "upload file",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_pengguna",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "kunci_file",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "file_enkripsi",
+									"type": "file",
+									"src": "/home/aldiariq/hasil.enc"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/uploadfile",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"operasifile",
+								"uploadfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get file pengguna",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://aldiariqrestfulapi.ddns.net/ProjekTAKripto//api/operasifile/getfile/22",
+							"protocol": "https",
+							"host": [
+								"aldiariqrestfulapi",
+								"ddns",
+								"net"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"",
+								"api",
+								"operasifile",
+								"getfile",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "download file",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/downloadfile/16/11",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"operasifile",
+								"downloadfile",
+								"16",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete file",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_file",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "nama_file",
+									"value": "12009-23844-1-SM.pdf1.enc",
+									"type": "text"
+								},
+								{
+									"key": "id_pengguna",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/deletefile",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"path": [
+								"ProjekTAKripto",
+								"api",
+								"operasifile",
+								"deletefile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "info aplikasi",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjQiLCJlbWFpbF9wZW5nZ3VuYSI6ImFyaXFpQGdtYWlsLmNvbSIsInRpbWUiOjE2MDQ4MjUyMTd9.A98TzLZ3l8zR_iAJx-cxqYkTvQvicnW5c9EOhDVd9p4",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
 				},
 				"url": {
-					"raw": "https://aldiariqrestfulapi.ddns.net/ProjekTAKripto/",
-					"protocol": "https",
+					"raw": "http://127.0.0.1/ProjekTAKripto/",
+					"protocol": "http",
 					"host": [
-						"aldiariqrestfulapi",
-						"ddns",
-						"net"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"path": [
 						"ProjekTAKripto",
@@ -32,341 +441,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "daftar pengguna",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "email",
-							"value": "daftar@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "nama",
-							"value": "daftar",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "12345678",
-							"type": "text"
-						},
-						{
-							"key": "kunciprivate",
-							"value": "12345",
-							"type": "text"
-						},
-						{
-							"key": "kuncipublic",
-							"value": "12345",
-							"type": "text"
-						},
-						{
-							"key": "kuncimodulus",
-							"value": "12345",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "https://aldiariqrestfulapi.ddns.net/ProjekTAKripto/api/daftarpengguna",
-					"protocol": "https",
-					"host": [
-						"aldiariqrestfulapi",
-						"ddns",
-						"net"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"api",
-						"daftarpengguna"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "masuk pengguna",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "email",
-							"value": "daftar@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "12345678",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "https://aldiariqrestfulapi.000webhostapp.com/ProjekTAKripto/api/masukpengguna",
-					"protocol": "https",
-					"host": [
-						"aldiariqrestfulapi",
-						"000webhostapp",
-						"com"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"api",
-						"masukpengguna"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "upload file",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id_pengguna",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "kunci_file",
-							"value": "12345678",
-							"type": "text"
-						},
-						{
-							"key": "file_enkripsi",
-							"type": "file",
-							"src": "/home/aldiariq/hasil.enc"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/uploadfile",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"api",
-						"operasifile",
-						"uploadfile"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get file pengguna",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"url": {
-					"raw": "https://aldiariqrestfulapi.ddns.net/ProjekTAKripto//api/operasifile/getfile/22",
-					"protocol": "https",
-					"host": [
-						"aldiariqrestfulapi",
-						"ddns",
-						"net"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"",
-						"api",
-						"operasifile",
-						"getfile",
-						"22"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "download file",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/downloadfile/16/11",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"api",
-						"operasifile",
-						"downloadfile",
-						"16",
-						"11"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get kunci rsa",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://aldiariqrestfulapi.000webhostapp.com/ProjekTAKripto/api/operasikunci/getkuncirsa/6",
-					"protocol": "https",
-					"host": [
-						"aldiariqrestfulapi",
-						"000webhostapp",
-						"com"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"api",
-						"operasikunci",
-						"getkuncirsa",
-						"6"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "keluar pengguna",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "httP://127.0.0.1/ProjekTAKripto/api/keluarpengguna/1",
-					"protocol": "httP",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"api",
-						"keluarpengguna",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete file",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id_file",
-							"value": "50",
-							"type": "text"
-						},
-						{
-							"key": "nama_file",
-							"value": "12009-23844-1-SM.pdf1.enc",
-							"type": "text"
-						},
-						{
-							"key": "id_pengguna",
-							"value": "2",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1/ProjekTAKripto/api/operasifile/deletefile",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"api",
-						"operasifile",
-						"deletefile"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ganti password pengguna",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id_pengguna",
-							"value": "16",
-							"type": "text"
-						},
-						{
-							"key": "password_lama",
-							"value": "12345678",
-							"type": "text"
-						},
-						{
-							"key": "password_baru",
-							"value": "12345",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1/ProjekTAKripto/api/gantipasswordpengguna",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"path": [
-						"ProjekTAKripto",
-						"api",
-						"gantipasswordpengguna"
-					]
-				}
-			},
-			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
