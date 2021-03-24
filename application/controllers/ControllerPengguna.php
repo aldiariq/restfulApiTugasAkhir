@@ -45,6 +45,11 @@ class ControllerPengguna extends RestController
             }
 
             if ($this->ModelKonfirmasipendaftaran->tambahkonfirmasi($datakonfirmasi)) {
+
+                $dataemailkonfirmasi = array(
+                    'url' => "api/aktivasipengguna/" . $kodeunik
+                );
+
                 $this->load->config('email');
                 $from = $this->config->item('smtp_user');
                 $to = $emailpengguna;
@@ -53,8 +58,8 @@ class ControllerPengguna extends RestController
                 $this->email->from($from);
                 $this->email->to($to);
                 $this->email->subject('Konfirmasi Email');
-                $this->email->message('Klik Link Berikut Untuk Aktivasi Akun <a href="' . base_url() . "api/aktivasipengguna/" . $kodeunik . '">AKTIVASI</a>');
                 $this->email->set_mailtype('html');
+                $this->email->message($this->load->view('emailaktivasipengguna/emailaktivasipengguna', $dataemailkonfirmasi, true));
                 $this->email->send();
 
                 $keterangan = array(
@@ -249,6 +254,10 @@ class ControllerPengguna extends RestController
 
         if ($this->ModelLupapassword->tambahlupapassword($datalupapassword)) {
 
+            $dataemailresetpasswprd = array(
+                'url' => "api/lupapasswordpengguna/" . $kodeunik
+            );
+
             $this->load->config('email');
             $from = $this->config->item('smtp_user');
             $to = $emailtujuan;
@@ -257,8 +266,8 @@ class ControllerPengguna extends RestController
             $this->email->from($from);
             $this->email->to($to);
             $this->email->subject('Reset Password');
-            $this->email->message('Klik Link Berikut Untuk Mereset Password Akun <a href="' . base_url() . "api/lupapasswordpengguna/" . $kodeunik . '">RESET</a>');
             $this->email->set_mailtype('html');
+            $this->email->message($this->load->view('emailresetpasswordpengguna/emailresetpasswordpengguna', $dataemailresetpasswprd, true));
             $this->email->send();
 
             $keterangan = array(
