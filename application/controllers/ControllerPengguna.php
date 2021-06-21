@@ -57,7 +57,7 @@ class ControllerPengguna extends RestController
                 $this->email->set_newline("\r\n");
                 $this->email->from($from);
                 $this->email->to($to);
-                $this->email->subject('Konfirmasi Email');
+                $this->email->subject('Konfirmasi Aktivasi Akun');
                 $this->email->set_mailtype('html');
                 $this->email->message($this->load->view('emailaktivasipengguna/emailaktivasipengguna', $dataemailkonfirmasi, true));
                 $this->email->send();
@@ -265,7 +265,7 @@ class ControllerPengguna extends RestController
             $this->email->set_newline("\r\n");
             $this->email->from($from);
             $this->email->to($to);
-            $this->email->subject('Reset Password');
+            $this->email->subject('Konfirmasi Atur Ulang Kata Sandi');
             $this->email->set_mailtype('html');
             $this->email->message($this->load->view('emailresetpasswordpengguna/emailresetpasswordpengguna', $dataemailresetpasswprd, true));
             $this->email->send();
